@@ -738,7 +738,7 @@ function App() {
                     <h3>Organization</h3>
                     <div className="input-group">
                       <label>{isMusic ? 'Artist / Label' : 'Primary Author'}</label>
-                      <input type="text" value={author} onChange={e => setAuthor(e.target.value)} placeholder={isMusic ? "Atlantis Records" : "Editorial Team"} />
+                      <input type="text" value={author} onChange={e => setAuthor(e.target.value)} placeholder={isMusic ? "TYSON Atlantis" : "Editorial Team"} />
                     </div>
                     <div className="input-group">
                       <label>{isMusic ? 'Genre / Type' : 'Category'}</label>
