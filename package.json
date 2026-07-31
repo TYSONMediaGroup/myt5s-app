@@ -1,0 +1,48 @@
+{
+  "name": "t5s-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "oxlint",
+    "preview": "vite preview",
+    "electron:start": "concurrently \"vite\" \"wait-on http://localhost:5173 && electron electron-main.cjs\"",
+    "electron:build": "npm run build && electron-builder --mac --dir"
+  },
+  "dependencies": {
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
+    "concurrently": "^10.0.4",
+    "cross-env": "^10.1.0",
+    "electron": "^43.2.0",
+    "electron-builder": "^26.15.3",
+    "oxlint": "^1.71.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.1.1",
+    "wait-on": "^9.1.0"
+  },
+  "main": "electron-main.cjs",
+  "build": {
+    "appId": "com.tyson.myt5s",
+    "productName": "myT5S",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "mac": {
+      "icon": "public/T5S logo official.png"
+    },
+    "files": [
+      "dist/**/*",
+      "electron-main.cjs",
+      "public/**/*"
+    ]
+  }
+}
