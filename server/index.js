@@ -9,7 +9,7 @@ app.use(express.json());
 let articles = [
   { id: 1, type: 'TMG', title: 'The Future of Media Distribution', author: 'Editorial Team', status: 'Published', date: '2026-07-28', category: 'Technology', views: 14205 },
   { id: 2, type: 'AVIATION', title: 'Audi RS6: Editorial Deep Dive', author: 'Editorial Team', status: 'Draft', date: '2026-07-29', category: 'Reviews', views: 0 },
-  { id: 3, type: 'ATLANTIS', title: 'Midnight Echoes - Full Album', author: 'Atlantis Records', status: 'Scheduled', date: '2026-08-15', category: 'Releases', views: 0 },
+  { id: 3, type: 'ATLANTIS', title: 'Midnight Echoes - Full Album', author: 'TYSON Atlantis', status: 'Scheduled', date: '2026-08-15', category: 'Releases', views: 0 },
   { id: 4, type: 'TMG', title: 'Quarterly Earnings Report', author: 'Finance Team', status: 'Review', date: '2026-07-30', category: 'News', views: 0 }
 ];
 
