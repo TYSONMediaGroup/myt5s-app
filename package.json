@@ -37,7 +37,7 @@
       "output": "dist-electron"
     },
     "mac": {
-      "icon": "public/T5S logo official.png"
+      "icon": "public/t5sAPPICON.png"
     },
     "files": [
       "dist/**/*",
