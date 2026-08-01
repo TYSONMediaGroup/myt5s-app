@@ -62,6 +62,11 @@ function App() {
     else setGreeting('Good Evening');
   }, []);
 
+  useEffect(() => {
+    document.title = `${activeTab} - myT5S Portal`;
+  }, [activeTab]);
+
+
   const [_activityLogs] = useState([
     { id: 1, action: "System login successful", user: "editor@tysonmediagroup.org", time: "Just now" },
     { id: 2, action: "Published item", user: "tyler@tysonmediagroup.org", time: "2 hours ago" },
