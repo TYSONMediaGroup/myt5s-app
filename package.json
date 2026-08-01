@@ -1,5 +1,6 @@
 {
-  "name": "t5s-app",
+  "name": "myt5s-app",
+  "description": "myT5S Portal Application",
   "private": true,
   "version": "0.0.0",
   "type": "module",
