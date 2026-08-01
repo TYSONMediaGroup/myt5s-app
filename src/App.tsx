@@ -62,7 +62,7 @@ function App() {
     else setGreeting('Good Evening');
   }, []);
 
-  const [activityLogs] = useState([
+  const [_activityLogs] = useState([
     { id: 1, action: "System login successful", user: "editor@tysonmediagroup.org", time: "Just now" },
     { id: 2, action: "Published item", user: "tyler@tysonmediagroup.org", time: "2 hours ago" },
     { id: 3, action: "Updated security policy", user: "admin", time: "Yesterday" }
@@ -103,7 +103,7 @@ function App() {
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false); 
   const [formErrors, setFormErrors] = useState<{title?: string, content?: string}>({});
   const [toastMessage, setToastMessage] = useState<string | null>(null);
-  const [queueFilter, setQueueFilter] = useState('All');
+  const [queueFilter, _setQueueFilter] = useState('All');
   const [showPreview, setShowPreview] = useState(false);
   const [cropImage, setCropImage] = useState<string | null>(null);
   const [isFocusMode, setIsFocusMode] = useState(false);
@@ -174,7 +174,7 @@ function App() {
       .replace(/^### (.*$)/gim, '<h3>$1</h3>')
       .replace(/^## (.*$)/gim, '<h2>$1</h2>')
       .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-      .replace(/^\> (.*$)/gim, '<blockquote>$1</blockquote>')
+      .replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>')
       .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
       .replace(/\*(.*)\*/gim, '<em>$1</em>')
       .replace(/`(.*?)`/gim, '<code style="background:var(--bg-color);padding:2px 4px;border-radius:4px">$1</code>')
@@ -336,7 +336,7 @@ function App() {
   const toggleArticleSelection = (id: number) => {
     setArticles(articles.map(a => a.id === id ? { ...a, selected: !a.selected } : a));
   };
-  const handleBulkDelete = () => {
+  const _handleBulkDelete = () => {
     setArticles(articles.filter(a => !a.selected));
     setToastMessage("Selected items deleted.");
   };
