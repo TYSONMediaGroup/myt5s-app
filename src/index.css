@@ -24,6 +24,7 @@ body.dark-theme {
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+html { scroll-behavior: smooth; }
 body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; overflow: hidden; }
 
 /* ------------------------
