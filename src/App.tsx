@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './index.css';
+import t5sLogo from './assets/t5s-logo.png';
 
 type PublisherType = 'TMG' | 'AVIATION' | 'ATLANTIS';
 
@@ -117,7 +118,7 @@ function App() {
   const readingTime = Math.ceil(wordCount / 200);
 
   const [showMediaModal, setShowMediaModal] = useState(false);
-  const mediaLibraryImages = ['/T5S logo official.png', '/TYSONAtlantisBanner.png', '/TYSONAviationBanner.png', '/TYSONMediaGroupBanner.png'];
+  const mediaLibraryImages = [t5sLogo, `${import.meta.env.BASE_URL}TYSONAtlantisBanner.png`, `${import.meta.env.BASE_URL}TYSONAviationBanner.png`, `${import.meta.env.BASE_URL}TYSONMediaGroupBanner.png`];
 
   const [vehicleMake, setVehicleMake] = useState('');
   const [vehicleModel, setVehicleModel] = useState('');
@@ -358,11 +359,11 @@ function App() {
   }
 
   if (isLoggedIn) {
-    let bannerImage = '/TYSONMediaGroupBanner.png';
+    let bannerImage = `${import.meta.env.BASE_URL}TYSONMediaGroupBanner.png`;
     let publisherName = 'TYSON Media Group';
     
-    if (publisherType === 'AVIATION') { bannerImage = '/TYSONAviationBanner.png'; publisherName = 'TYSON Aviation'; }
-    else if (publisherType === 'ATLANTIS') { bannerImage = '/TYSONAtlantisBanner.png'; publisherName = 'Atlantis Music'; }
+    if (publisherType === 'AVIATION') { bannerImage = `${import.meta.env.BASE_URL}TYSONAviationBanner.png`; publisherName = 'TYSON Aviation'; }
+    else if (publisherType === 'ATLANTIS') { bannerImage = `${import.meta.env.BASE_URL}TYSONAtlantisBanner.png`; publisherName = 'Atlantis Music'; }
 
     const filteredArticles = articles.filter(a => a.title.toLowerCase().includes(searchQuery.toLowerCase()) && (queueFilter === 'All' || a.category === queueFilter));
 
@@ -479,7 +480,7 @@ function App() {
         
         <div className={`sidebar ${sidebarCollapsed ? 'collapsed' : ''} ${sidebarMobileOpen ? 'mobile-open' : ''}`}>
           <div className="sidebar-logo">
-            <img src="/T5S logo official.png" alt="T5S Logo" loading="lazy" />
+            <img src={t5sLogo} alt="T5S Logo" loading="lazy" />
           </div>
           <nav>
             {['Content Editor', 'Media Library', 'Editorial Queue', 'Content Calendar', 'Comments', 'Analytics', 'Settings'].map(tab => (
@@ -1023,7 +1024,7 @@ function App() {
              100% { filter: drop-shadow(0 0 10px rgba(255,255,255,0.1)); transform: scale(0.98); opacity: 0.8; }
            }
          `}</style>
-         <img src="/T5S logo official.png" alt="Boot Logo" style={{ width: '120px', animation: 'pulse-glow 2s infinite ease-in-out' }} />
+         <img src={t5sLogo} alt="Boot Logo" style={{ width: '120px', animation: 'pulse-glow 2s infinite ease-in-out' }} />
          <div style={{ marginTop: '3rem', fontSize: '0.75rem', color: '#888', letterSpacing: '6px', textTransform: 'uppercase' }}>System Initializing...</div>
       </div>
     );
@@ -1033,7 +1034,7 @@ function App() {
     <div className="login-page-wrapper">
       <div className="login-container">
         <div className="brand-header">
-          <img src="/T5S logo official.png" alt="T5S Logo" className="login-logo" />
+          <img src={t5sLogo} alt="T5S Logo" className="login-logo" />
           <div className="brand-title">myTYSON</div>
           <div className="brand-subtitle">Publishing Platform</div>
         </div>
