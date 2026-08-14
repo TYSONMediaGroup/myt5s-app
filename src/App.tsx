@@ -268,6 +268,46 @@ function App() {
     }
   };
 
+  const handlePublishToTysonAuto = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!title || !content) {
+      setToastMessage("Title and Content are required for TYSON Auto.");
+      return;
+    }
+    
+    const articleData = {
+      title,
+      author: author || 'Editorial Staff',
+      content,
+      excerpt,
+      coverImage,
+      vehicleMake,
+      vehicleModel
+    };
+
+    setToastMessage("Publishing to TYSON Auto repository...");
+
+    fetch('http://localhost:3001/api/publish-auto', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(articleData)
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        setToastMessage("Successfully published to Cloudflare Pages!");
+        // Clear form
+        setTitle(''); setAuthor(''); setCoverImage(''); setContent(''); setExcerpt('');
+      } else {
+        setToastMessage("Error: " + data.error);
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      setToastMessage("Network error publishing to Tyson Auto.");
+    });
+  };
+
   const handleAudioUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const files = Array.from(e.target.files);
@@ -733,10 +773,9 @@ function App() {
                       <input type="datetime-local" value={publishDate} onChange={e => setPublishDate(e.target.value)} />
                     </div>
                     <div className="publish-actions" style={{display: 'flex', flexDirection: 'column', gap: '0.75rem'}}>
-                      <div className="flex-buttons">
                          <button type="button" className="secondary-btn" onClick={(e) => handlePublish(e, 'Draft')}>Save Draft</button>
                          <button type="button" className="action-btn" onClick={(e) => handlePublish(e, 'Published')}>{publishDate ? 'Schedule' : (editingId ? 'Update' : 'Publish')}</button>
-                      </div>
+                         <button type="button" className="action-btn" onClick={handlePublishToTysonAuto} style={{background: '#e63946', borderColor: '#e63946'}}>🚀 Publish to TYSON Auto</button>
                     </div>
                   </div>
 

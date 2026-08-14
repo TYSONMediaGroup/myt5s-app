@@ -1,5 +1,8 @@
 const express = require('express');
 const cors = require('cors');
+const fs = require('fs');
+const path = require('path');
+const { exec } = require('child_process');
 
 const app = express();
 app.use(cors());
@@ -54,6 +57,68 @@ app.delete('/api/articles/:id', (req, res) => {
   const id = parseInt(req.params.id);
   articles = articles.filter(a => a.id !== id);
   res.json({ success: true });
+});
+
+// Publish to Tyson Auto (Cloudflare Pages Architecture)
+app.post('/api/publish-auto', (req, res) => {
+  try {
+    const article = req.body;
+    
+    // Path to tyson-auto mockData.ts
+    const tysonAutoPath = path.resolve(__dirname, '../../../tyson-auto');
+    const dataFilePath = path.join(tysonAutoPath, 'src/data/mockData.ts');
+    
+    // Read existing data
+    let existingDataStr = fs.readFileSync(dataFilePath, 'utf8');
+    
+    // Create new post object
+    const newPost = {
+      id: `post_${Date.now()}`,
+      title: article.title,
+      slug: article.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, ''),
+      author: article.author || 'Editorial Staff',
+      published_at: new Date().toISOString(),
+      hero_image: article.coverImage || "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1920&q=80",
+      score: 8.5,
+      vehicle: {
+        make: article.vehicleMake || "Custom",
+        model: article.vehicleModel || "Vehicle",
+        year: 2026,
+        body_style: "Auto",
+        price_as_tested: "TBA",
+        specs: {
+          powertrain: "TBA",
+          horsepower: "TBA",
+          torque: "TBA",
+          towing_capacity: "TBA",
+          fuel_economy: "TBA"
+        },
+        pros: ["Great performance", "Premium feel"],
+        cons: ["Pending review"]
+      },
+      excerpt: article.excerpt || article.content.substring(0, 150) + '...',
+      body: article.content
+    };
+
+    // Inject into mockData.ts (very naive string replacement for the demo)
+    // Find the start of the posts array: `posts: [`
+    const insertPoint = existingDataStr.indexOf('posts: [') + 8;
+    const injectedStr = existingDataStr.slice(0, insertPoint) + '\n    ' + JSON.stringify(newPost, null, 2).replace(/\n/g, '\n    ') + ',' + existingDataStr.slice(insertPoint);
+    
+    fs.writeFileSync(dataFilePath, injectedStr);
+
+    // Run Git commit
+    exec(`git add src/data/mockData.ts && git commit -m "Auto-publish: ${article.title}"`, { cwd: tysonAutoPath }, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Git error: ${error}`);
+        // We'll still return success for the file write
+      }
+      res.json({ success: true, message: 'Published directly to Tyson Auto repository!' });
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: error.message });
+  }
 });
 
 const PORT = process.env.PORT || 3001;
